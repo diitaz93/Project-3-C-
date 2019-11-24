@@ -143,7 +143,7 @@ void Domain::generate_grid(int m_,int n_)
 	      - ksi*eta * Corner_y[0] - (1-ksi)*eta * Corner_y[1]
 	      - ksi*(1-eta) * Corner_y[2] - (1-ksi)*(1-eta) * Corner_y[4];
 	    
-	    std::cout<<ksi<<"\t"<<eta<<"\t"<<sigma<<"\n";
+	    //std::cout<<ksi<<"\t"<<eta<<"\t"<<sigma<<"\n";
 	  }
     }
 }
@@ -152,6 +152,6 @@ void Domain::Output()
   FILE *fp;
   fp=fopen("outfile.bin","wb");
   fwrite(x,sizeof(double),m*n,fp);
-  fwrite(y,sizeof(double),m*n,fp);
+  //fwrite(y,sizeof(double),m*n,fp);
   fclose(fp);
 }
