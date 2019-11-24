@@ -60,7 +60,8 @@ class LeftCurve:public Curvebase
     return 0.0;
   }
   double dyp(double p)
-  {  return 0.0;
+  {
+      return 1.0;
   }
 public:
   LeftCurve(double a,double b):Curvebase(a,b){}
@@ -86,7 +87,7 @@ class RightCurve:public Curvebase
   }
   double dyp(double p)
   {
-    return 0.0;
+      return 1;
   }
 public:
   RightCurve(double a,double b):Curvebase(a,b){}
@@ -108,7 +109,7 @@ class UpperCurve:public Curvebase
   }
   double dxp(double p)
   {
-    return 0.0;
+      return 1.0;;
   }
   double dyp(double p)
   {
