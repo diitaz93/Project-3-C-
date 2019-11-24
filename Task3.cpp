@@ -125,22 +125,25 @@ void Domain::generate_grid(int m_,int n_)
       double Corner_y[4]={0.0,0.0,3.0,3.0};
       int k;
       const double delta=3.0;
-      for(int i=0;i<n;i++)//x direction 
-	for(int j=0;j<m;j++)//y direction
+      for(int i=1;i<n;i++)//y direction 
+	for(int j=1;j<m;j++)//x direction
 	  {
-	    ksi=i/m;
-	    sigma=1.0+((std::tanh(delta(ksi-1))))/(std::tanh(ksi));
+	    ksi=(double)j/(double)m;//ksi,j,m in the x direction
+	    
 	    //non-uniform distribution
-	    eta=j/n;
+	    sigma=(double)i/(double)n; //eta,i,n in the y direction
+	    eta=1.0+((std::tanh(delta*(sigma-1))))/(std::tanh(delta));
 	    k=i*m+j;//Lexicograghical rule
 	    x[k]=ksi * (*sides[0]).x(eta) + (1-ksi) * (*sides[1]).x(eta)
-	      + eta * (*sides[2]).x(sigma) + (1-eta) * (*sides[3]).x(ksi)
-	      - sigma*eta * Corner_x[0] - (1-sigma)*eta * Corner_x[1]
+	      + eta * (*sides[2]).x(ksi) + (1-eta) * (*sides[3]).x(ksi)
+	      - ksi*eta * Corner_x[0] - (1-ksi)*eta * Corner_x[1]
 	      - ksi*(1-eta) * Corner_x[2] - (1-ksi)*(1-eta) * Corner_x[4];
 	    y[k]=ksi * (*sides[0]).y(eta) + (1-ksi) * (*sides[1]).y(eta)
-	      + eta * (*sides[2]).y(sigma) + (1-eta) * (*sides[3]).y(ksi)
-	      - sigma*eta * Corner_y[0] - (1-sigma)*eta * Corner_y[1]
+	      + eta * (*sides[2]).y(ksi) + (1-eta) * (*sides[3]).y(ksi)
+	      - ksi*eta * Corner_y[0] - (1-ksi)*eta * Corner_y[1]
 	      - ksi*(1-eta) * Corner_y[2] - (1-ksi)*(1-eta) * Corner_y[4];
+	    
+	    std::cout<<ksi<<"\t"<<eta<<"\t"<<sigma<<"\n";
 	  }
     }
 }
