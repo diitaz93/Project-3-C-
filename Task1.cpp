@@ -58,7 +58,8 @@ double Curvebase::newton(double s)
 
 double Curvebase::x(double s)
 {
-  length = integrate(pmax);
+  //if(length==0)
+  //  length = integrate(pmax);
   if(s<0 || s>1) // Check if s in not in the interval
     {
       std::cerr<<"the distribution parameter can only be between 0 and 1";
@@ -69,7 +70,8 @@ double Curvebase::x(double s)
 }
 double Curvebase::y(double s)
 {
-  length = integrate(pmax);
+  // if(length==0)
+  // length = integrate(pmax);
   if(s<0 || s>1) // Check if s in not in the interval
     {
       std::cerr<<"the distribution parameter can only be between 0 and 1";

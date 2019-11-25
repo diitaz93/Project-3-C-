@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include "Project3.hpp"
+#include "Task2.cpp"
 #include <cstdio>
 
 
@@ -105,6 +106,10 @@ Domain::~Domain()
 }
 void Domain::generate_grid(int m_,int n_)
 {
+  std::cout<<(*sides[0]).LLL()<<std::endl;
+  std::cout<<(*sides[1]).LLL()<<std::endl;
+  std::cout<<(*sides[2]).LLL()<<std::endl;
+  std::cout<<(*sides[3]).LLL()<<std::endl;
   //m on x;n on y
   if(m_<=0 || n_<=0)
     {
@@ -127,14 +132,14 @@ void Domain::generate_grid(int m_,int n_)
       double Corner_y[4]={0.0,0.0,3.0,3.0};
       int k;
       const double delta=3.0;
-      for(int i=1;i<n;i++)//y direction
+      for(int i=0;i<n;i++)//y direction
 	{
-	for(int j=1;j<m;j++)//x direction
+	for(int j=0;j<m;j++)//x direction
 	  {
-	    ksi=(double)j/(double)m;//ksi,j,m in the x direction
+	    ksi=(double)(j+1)/(double)(m+1);//ksi,j,m in the x direction
 	    
 	    //non-uniform distribution
-	    sigma=(double)i/(double)n; //eta,i,n in the y direction
+	    sigma=(double)(i+1)/(double)(n+1); //eta,i,n in the y direction
 	    //eta=1.0+((std::tanh(delta*(sigma-1))))/(std::tanh(delta));
 	    eta=sigma;
 	    k=i*m+j;//Lexicograghical rule
@@ -157,8 +162,8 @@ void Domain::generate_grid(int m_,int n_)
 	      + (1-eta) * (*sides[2]).y(ksi) + (eta) * (*sides[3]).y(ksi)
 	      - (1-ksi)*(1-eta) * Corner_y[0] - (ksi)*(1-eta) * Corner_y[1]
 	      - (1-ksi)*(eta) * Corner_y[2] - (ksi)*(eta) * Corner_y[4];
-	    if(i==1 && j==1)
-	    std::cout<<ksi<<"\t"<<eta<<"\t"<<(*sides[0]).y(eta)<<"\t"<<(*sides[1]).y(eta)<<"\t"<<(*sides[2]).y(ksi)<<"\t"<<(*sides[3]).y(ksi)<<"\t"<<y[k]<<"\n";
+	    
+	    std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<x[k]<<"\n";
 	  }
 	}
     }
