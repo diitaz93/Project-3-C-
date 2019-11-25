@@ -25,5 +25,20 @@ public:
   double y(double);
   virtual ~Curvebase(){};
 };
+class Domain
+{
+  Curvebase *sides[4];
+  double *x,*y; //Array of coordinates of each inner node
+  int m,n; //Number of internal nodes
+public:
+  //Domain(LeftCurve&, RightCurve&, LowerCurve&, UpperCurve&);
+  Domain(Curvebase&,Curvebase&,Curvebase&,Curvebase&); //Constructor
+  Domain(const Domain&); //Copy constructor
+  Domain& operator=(const Domain&); //Copy assignment
+  ~Domain(); // Destructor
+  void generate_grid(int,int);//number of internal nodes in each direction
+  void Output(); // Writting internal nodes to file
+};
+
 #endif
 

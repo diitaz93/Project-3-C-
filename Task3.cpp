@@ -4,20 +4,6 @@
 #include "Project3.hpp"
 #include <cstdio>
 
-class Domain
-{
-  Curvebase *sides[4];
-  double *x,*y; //Array of coordinates of each inner node
-  int m,n; //Number of internal nodes
-public:
-  //Domain(LeftCurve&, RightCurve&, LowerCurve&, UpperCurve&);
-  Domain(Curvebase&,Curvebase&,Curvebase&,Curvebase&); //Constructor
-  Domain(const Domain&); //Copy constructor
-  Domain& operator=(const Domain&); //Copy assignment
-  ~Domain(); // Destructor
-  void generate_grid(int,int);//number of internal nodes in each direction
-  void Output(); // Writting internal nodes to file
-};
 
 // Constructor
 Domain::Domain(Curvebase& s1,Curvebase& s2,Curvebase& s3,Curvebase& s4)
@@ -139,7 +125,7 @@ void Domain::generate_grid(int m_,int n_)
 	      - ksi*eta * Corner_y[0] - (1-ksi)*eta * Corner_y[1]
 	      - ksi*(1-eta) * Corner_y[2] - (1-ksi)*(1-eta) * Corner_y[3];
 	    */
-	    //std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<y[k]<<"\n";
+	    std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<x[k]<<"\n";
 	    
 	  }
 	}
