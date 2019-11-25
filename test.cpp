@@ -15,5 +15,6 @@ int main()
 
   Domain D(L1,L2,L3,L4);
   D.generate_grid(50,20);//number of inner nodes
+  D.Output();
   return 1;
 }

@@ -103,8 +103,8 @@ void Domain::generate_grid(int m_,int n_)
 	    
 	    //non-uniform distribution
 	    sigma=(double)(i+1)/(double)(n+1); //eta,i,n in the y direction
-	    eta=1.0+((std::tanh(delta*(sigma-1))))/(std::tanh(delta));
-	    //eta=sigma;
+	    //eta=1.0+((std::tanh(delta*(sigma-1))))/(std::tanh(delta));
+	    eta=sigma;
 	    k=i*m+j;//Lexicograghical rule
 	    
 	    x[k]=(1-ksi) * (*sides[0]).x(eta) + (ksi) * (*sides[1]).x(eta)
@@ -125,7 +125,7 @@ void Domain::generate_grid(int m_,int n_)
 	      - ksi*eta * Corner_y[0] - (1-ksi)*eta * Corner_y[1]
 	      - ksi*(1-eta) * Corner_y[2] - (1-ksi)*(1-eta) * Corner_y[3];
 	    */
-	    std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<x[k]<<"\n";
+	    //std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<x[k]<<"\n";
 	    
 	  }
 	}
@@ -136,21 +136,6 @@ void Domain::Output()
   FILE *fp;
   fp=fopen("outfile.bin","wb");
   fwrite(x,sizeof(double),m*n,fp);
-  //fwrite(y,sizeof(double),m*n,fp);
+  fwrite(y,sizeof(double),m*n,fp);
   fclose(fp);
-  /*
-  std::ofstream f("output.bin",std::ofstream::out | std::ofstream::binary);
-  if(!f)
-    {
-      std::cerr<<"err1!";
-      exit(EXIT_FAILURE);
-    }
-  f.write(x,m*n*sizeof(double));
-  if(!f)
-    {
-      std::cerr<<"error2!";
-      exit(EXIT_FAILURE);
-    }
-  f.close();
-  */
 }
