@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iomanip>
 #include "Project3.hpp"
-#include "Task2.cpp"
 #include <cstdio>
 
 class Domain
@@ -140,7 +139,7 @@ void Domain::generate_grid(int m_,int n_)
 	      - ksi*eta * Corner_y[0] - (1-ksi)*eta * Corner_y[1]
 	      - ksi*(1-eta) * Corner_y[2] - (1-ksi)*(1-eta) * Corner_y[3];
 	    */
-	    std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<y[k]<<"\n";
+	    //std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<y[k]<<"\n";
 	    
 	  }
 	}

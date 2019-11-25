@@ -1,5 +1,6 @@
 #include "Project3.hpp"
 #include "Task1.cpp"
+#include "Task2.cpp"
 #include "Task3.cpp"
 #include <iostream>
 #include <iomanip>
