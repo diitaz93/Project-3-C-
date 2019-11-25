@@ -24,10 +24,6 @@ public:
   double x(double);
   double y(double);
   virtual ~Curvebase(){};
-  double LLL()
-  {
-    return length;
-  }
 };
 #endif
 

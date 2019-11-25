@@ -5,30 +5,24 @@
 #include "Task2.cpp"
 #include <cstdio>
 
-
 class Domain
 {
   Curvebase *sides[4];
   double *x,*y; //Array of coordinates of each inner node
   int m,n; //Number of internal nodes
 public:
-  Domain(LeftCurve&, RightCurve&, LowerCurve&, UpperCurve&);
-  //Domain(Curvebase&,Curvebase&,Curvebase&,Curvebase&); //Constructor
-  //Domain(const Domain&); //Copy constructor
-  //Domain(Domain&&); // Move constructor
+  //Domain(LeftCurve&, RightCurve&, LowerCurve&, UpperCurve&);
+  Domain(Curvebase&,Curvebase&,Curvebase&,Curvebase&); //Constructor
+  Domain(const Domain&); //Copy constructor
   Domain& operator=(const Domain&); //Copy assignment
   ~Domain(); // Destructor
   void generate_grid(int,int);//number of internal nodes in each direction
   void Output(); // Writting internal nodes to file
-  int indicator()
-  {
-    return m;
-  }//Test function (temporary)
 };
 
 // Constructor
-//Domain::Domain(Curvebase& s1,Curvebase& s2,Curvebase& s3,Curvebase& s4)
-Domain::Domain(LeftCurve& s1, RightCurve& s2, LowerCurve& s3, UpperCurve& s4)
+Domain::Domain(Curvebase& s1,Curvebase& s2,Curvebase& s3,Curvebase& s4)
+//Domain::Domain(LeftCurve& s1, RightCurve& s2, LowerCurve& s3, UpperCurve& s4)
 {
   sides[0]=&s1;//Left
   sides[1]=&s2;//Right
@@ -38,7 +32,6 @@ Domain::Domain(LeftCurve& s1, RightCurve& s2, LowerCurve& s3, UpperCurve& s4)
   x=y=nullptr;
 }
 //Copy constructor
-/*
 Domain::Domain(const Domain& d):m(d.m),n(d.n),x(nullptr),y(nullptr)
 {
   if(m>0)
@@ -52,17 +45,6 @@ Domain::Domain(const Domain& d):m(d.m),n(d.n),x(nullptr),y(nullptr)
 	}
     }
 }
-*/
-// Move constructor
-/*
-Domain::Domain(Domain&& d) noexcept:m(d.m),n(d.n),x(d.x),y(d.y)
-{
-  d.m=0;
-  d.n=0;
-  d.x=nullptr;
-  d.y=nullptr;
-}
-*/
 // Copy assignment
 Domain& Domain::operator=(const Domain& d)
 {
@@ -106,10 +88,6 @@ Domain::~Domain()
 }
 void Domain::generate_grid(int m_,int n_)
 {
-  std::cout<<(*sides[0]).LLL()<<std::endl;
-  std::cout<<(*sides[1]).LLL()<<std::endl;
-  std::cout<<(*sides[2]).LLL()<<std::endl;
-  std::cout<<(*sides[3]).LLL()<<std::endl;
   //m on x;n on y
   if(m_<=0 || n_<=0)
     {
@@ -140,30 +118,30 @@ void Domain::generate_grid(int m_,int n_)
 	    
 	    //non-uniform distribution
 	    sigma=(double)(i+1)/(double)(n+1); //eta,i,n in the y direction
-	    //eta=1.0+((std::tanh(delta*(sigma-1))))/(std::tanh(delta));
-	    eta=sigma;
+	    eta=1.0+((std::tanh(delta*(sigma-1))))/(std::tanh(delta));
+	    //eta=sigma;
 	    k=i*m+j;//Lexicograghical rule
-	    /*
-	    x[k]=ksi * (*sides[0]).x(eta) + (1-ksi) * (*sides[1]).x(eta)
-	      + eta * (*sides[2]).x(ksi) + (1-eta) * (*sides[3]).x(ksi)
-	      - ksi*eta * Corner_x[0] - (1-ksi)*eta * Corner_x[1]
-	      - ksi*(1-eta) * Corner_x[2] - (1-ksi)*(1-eta) * Corner_x[4];
-	    y[k]=ksi * (*sides[0]).y(eta) + (1-ksi) * (*sides[1]).y(eta)
-	      + eta * (*sides[2]).y(ksi) + (1-eta) * (*sides[3]).y(ksi)
-	      - ksi*eta * Corner_y[0] - (1-ksi)*eta * Corner_y[1]
-	      - ksi*(1-eta) * Corner_y[2] - (1-ksi)*(1-eta) * Corner_y[4];
-	    */
 	    
 	    x[k]=(1-ksi) * (*sides[0]).x(eta) + (ksi) * (*sides[1]).x(eta)
 	      + (1-eta) * (*sides[2]).x(ksi) + (eta) * (*sides[3]).x(ksi)
 	      - (1-ksi)*(1-eta) * Corner_x[0] - (ksi)*(1-eta) * Corner_x[1]
-	      - (1-ksi)*(eta) * Corner_x[2] - (ksi)*(eta) * Corner_x[4];
+	      - (1-ksi)*(eta) * Corner_x[2] - (ksi)*(eta) * Corner_x[3];
 	    y[k]=(1-ksi) * (*sides[0]).y(eta) + (ksi) * (*sides[1]).y(eta)
 	      + (1-eta) * (*sides[2]).y(ksi) + (eta) * (*sides[3]).y(ksi)
 	      - (1-ksi)*(1-eta) * Corner_y[0] - (ksi)*(1-eta) * Corner_y[1]
-	      - (1-ksi)*(eta) * Corner_y[2] - (ksi)*(eta) * Corner_y[4];
+	      - (1-ksi)*(eta) * Corner_y[2] - (ksi)*(eta) * Corner_y[3];
+	    /*
+	    x[k]=ksi * (*sides[0]).x(eta) + (1-ksi) * (*sides[1]).x(eta)
+	      + eta * (*sides[2]).x(ksi) + (1-eta) * (*sides[3]).x(ksi)
+	      - ksi*eta * Corner_x[0] - (1-ksi)*eta * Corner_x[1]
+	      - ksi*(1-eta) * Corner_x[2] - (1-ksi)*(1-eta) * Corner_x[3];
+	    y[k]=ksi * (*sides[0]).y(eta) + (1-ksi) * (*sides[1]).y(eta)
+	      + eta * (*sides[2]).y(ksi) + (1-eta) * (*sides[3]).y(ksi)
+	      - ksi*eta * Corner_y[0] - (1-ksi)*eta * Corner_y[1]
+	      - ksi*(1-eta) * Corner_y[2] - (1-ksi)*(1-eta) * Corner_y[3];
+	    */
+	    std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<y[k]<<"\n";
 	    
-	    std::cout<<k<<"\t"<<ksi<<"\t"<<eta<<"\t"<<x[k]<<"\n";
 	  }
 	}
     }
